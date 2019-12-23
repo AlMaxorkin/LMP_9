@@ -62,130 +62,95 @@ void Merge_Sort(string path)
 
 	while (k < counter)
 	{
-		ifstream main_in_1(path);
-		ofstream first_split_out_1("D:\\smsort_1.txt"); 
-		ofstream second_split_out_2("D:\\smsort_2.txt");
+		ifstream main_in(path);
+		ofstream split_out_1("D:\\smsort_1.txt"); 
+		ofstream split_out_2("D:\\smsort_2.txt");
 
-		if (!main_in_1.eof())
-			getline(main_in_1, str1);
-		while (!main_in_1.eof())
+		if (!main_in.eof())
+			getline(main_in, str1);
+		while (!main_in.eof())
 		{
-			for (i = 0; i < k && !main_in_1.eof(); i++)
+			for (i = 0; i < k && !main_in.eof(); i++)
 			{
-				first_split_out_1 << str1;
-				first_split_out_1 << "\n";
-				getline(main_in_1, str1);
+				split_out_1 << str1;
+				split_out_1 << "\n";
+				getline(main_in, str1);
 			}
-			for (j = 0; j < k && !main_in_1.eof(); j++)
+			for (j = 0; j < k && !main_in.eof(); j++)
 			{
-				second_split_out_2 << str1;
-				second_split_out_2 << "\n";
-				getline(main_in_1, str1);
+				split_out_2 << str1;
+				split_out_2 << "\n";
+				getline(main_in, str1);
 			}
 		}
 
-		first_split_out_1.close();
-		second_split_out_2.close();
-		main_in_1.close();
+		split_out_1.close();
+		split_out_2.close();
+		main_in.close();
 
-		ofstream main_out_2(path);
-		ifstream first_split_in_2("D:\\smsort_1.txt");
-		ifstream second_split_in_2("D:\\smsort_2.txt");
+		ofstream main_out(path);
+		ifstream split_in_1("D:\\smsort_1.txt");
+		ifstream split_in_2("D:\\smsort_2.txt");
 
-		if (!first_split_in_2.eof()) 
-			getline(first_split_in_2,str1);
-		if (!second_split_in_2.eof()) 
-			getline(second_split_in_2,str2);
+		if (!split_in_1.eof()) 
+			getline(split_in_1,str1);
+		if (!split_in_2.eof()) 
+			getline(split_in_2,str2);
 	
-		while (!first_split_in_2.eof() && !second_split_in_2.eof())
+		while (!split_in_1.eof() && !split_in_2.eof())
 		{
-		i = 0;
-		j = 0;
-			while (i < k && j < k && !first_split_in_2.eof() && !second_split_in_2.eof())
+			i = 0;
+			j = 0;
+			while (i < k && j < k && !split_in_1.eof() && !split_in_2.eof())
 			{
 				if (compare(str1, str2))
 				{
-					main_out_2 << str1;
-					main_out_2 << "\n";
-					getline(first_split_in_2, str1);
+					main_out << str1;
+					main_out << "\n";
+					getline(split_in_1, str1);
 					i++;
 				}
-				else 
+				else
 				{
-					main_out_2 << str2;
-					main_out_2 << "\n";
-					getline(second_split_in_2, str2);
+					main_out << str2;
+					main_out << "\n";
+					getline(split_in_2, str2);
 					j++;
 				}
 			}
-		}
-		
-		first_split_in_2.close();
-		second_split_in_2.close(); 
-		main_out_2.close();
 
-		ofstream main_out_3(path);
-		ifstream first_split_in_3("D:\\smsort_1.txt");
-		ifstream second_split_in_3("D:\\smsort_2.txt");
-
-		if (!first_split_in_3.eof()) 
-			getline(first_split_in_3, str1);
-		if (!second_split_in_3.eof()) 
-			getline(second_split_in_3, str2);
-		while (!first_split_in_3.eof() && !second_split_in_3.eof())
-	{
-		i = 0; 
-		j = 0;
-		while (i < k && j < k && !first_split_in_3.eof() && !second_split_in_3.eof())
-		{
-			if (compare(str1,str2))
+			while (i < k && !split_in_1.eof())
 			{
-				main_out_3 << str1;
-				main_out_3 << "\n";
-				getline(first_split_in_3, str1);
+				main_out << str1;
+				main_out << "\n";
+				getline(split_in_1, str1);
 				i++;
 			}
-			else 
+			while (j < k && !split_in_2.eof())
 			{
-				main_out_3 << str2;
-				main_out_3 << "\n";
-				getline(second_split_in_3, str2);
+				main_out << str2;
+				main_out << "\n";
+				getline(split_in_2, str2);
 				j++;
 			}
 		}
-		while (i < k && !first_split_in_3.eof())
+		while (!split_in_1.eof())
 		{
-			main_out_3 << str1;
-			main_out_3 << "\n";
-			getline(first_split_in_3, str1);
-			i++;
+			main_out << str1;
+			main_out << "\n";
+			getline(split_in_1, str1);
 		}
-		while (j < k && !second_split_in_3.eof())
+		while (!split_in_2.eof())
 		{
-			main_out_3 << str2;
-			main_out_3 << "\n";
-			getline(second_split_in_3, str2);
-			j++;
+			main_out << str2;
+			main_out << "\n";
+			getline(split_in_2, str2);
 		}
-		}
-		while (!first_split_in_3.eof())
-		{
-			main_out_3 << str1;
-			main_out_3 << "\n";
-			getline(first_split_in_3, str1);
-		}
-		while (!second_split_in_3.eof())
-		{
-			main_out_3 << str2;
-			main_out_3 << "\n";
-			getline(second_split_in_3, str2);
-		}
-		second_split_in_3.close(); 
-		first_split_in_3.close();
-		main_out_3.close();
+		split_in_2.close(); 
+		split_in_1.close();
+		main_out.close();
 		k *= 2;
 	}
-	
 }
 
 int main()
